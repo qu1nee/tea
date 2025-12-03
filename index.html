@@ -1,0 +1,2051 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чайный магазин "Хрюшка"</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f5ed;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: #2d5a27;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 32px;
+            color: #c8e6c9;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: #c8e6c9;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+
+        .user-icon {
+            font-size: 20px;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 22px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #d32f2f;
+            color: white;
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-toggle, .register-toggle, .logout-btn {
+            background-color: #8d6e63;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            font-size: 14px;
+        }
+
+        .login-toggle:hover, .register-toggle:hover, .logout-btn:hover {
+            background-color: #a1887f;
+        }
+
+        .logout-btn {
+            background-color: #5d4037;
+        }
+
+        main {
+            padding: 40px 0;
+            min-height: calc(100vh - 200px);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2d5a27;
+            font-size: 32px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #8d6e63;
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .tea-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .tea-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .tea-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .tea-image {
+            height: 180px;
+            background-color: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2d5a27;
+            font-size: 70px;
+        }
+
+        .tea-info {
+            padding: 20px;
+        }
+
+        .tea-name {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #2d5a27;
+        }
+
+        .tea-description {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+            height: 60px;
+            overflow: hidden;
+        }
+
+        .tea-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #8d6e63;
+            margin-bottom: 15px;
+        }
+
+        .tea-quantity {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            background-color: #f5f5f5;
+            border-radius: 6px;
+        }
+
+        .quantity-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .quantity-value {
+            font-weight: 700;
+            font-size: 18px;
+            color: #2d5a27;
+        }
+
+        .low-stock {
+            color: #d32f2f;
+        }
+
+        .buy-section {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quantity-select {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .buy-btn {
+            background-color: #2d5a27;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .buy-btn:hover {
+            background-color: #1e3f1a;
+        }
+
+        .admin-controls {
+            display: none;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .admin-controls h3 {
+            margin-bottom: 10px;
+            color: #555;
+            font-size: 18px;
+        }
+
+        .admin-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .edit-btn, .delete-btn, .update-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .edit-btn {
+            background-color: #1976d2;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background-color: #1565c0;
+        }
+
+        .delete-btn {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background-color: #c62828;
+        }
+
+        .update-btn {
+            background-color: #2d5a27;
+            color: white;
+        }
+
+        .update-btn:hover {
+            background-color: #1e3f1a;
+        }
+
+        .quantity-adjust {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .quantity-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        footer {
+            background-color: #2d5a27;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: #c8e6c9;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: #a5d6a7;
+            font-size: 14px;
+        }
+
+        /* Модальные окна */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            color: #2d5a27;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .submit-btn, .cancel-btn {
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn {
+            background-color: #2d5a27;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background-color: #1e3f1a;
+        }
+
+        .cancel-btn {
+            background-color: #757575;
+            color: white;
+        }
+
+        .cancel-btn:hover {
+            background-color: #616161;
+        }
+
+        /* Админ-панель */
+        .admin-panel {
+            display: none;
+            background-color: #f1f8e9;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .admin-panel h2 {
+            color: #2d5a27;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .admin-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-buttons-admin {
+            grid-column: span 2;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .add-btn, .save-btn, .export-btn, .import-btn {
+            background-color: #2d5a27;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .save-btn {
+            background-color: #1976d2;
+        }
+
+        .export-btn {
+            background-color: #ff9800;
+        }
+
+        .import-btn {
+            background-color: #9c27b0;
+        }
+
+        .add-btn:hover {
+            background-color: #1e3f1a;
+        }
+
+        .save-btn:hover {
+            background-color: #1565c0;
+        }
+
+        .export-btn:hover {
+            background-color: #f57c00;
+        }
+
+        .import-btn:hover {
+            background-color: #7b1fa2;
+        }
+
+        /* Корзина */
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-info h4 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .cart-item-price {
+            color: #8d6e63;
+            font-weight: 600;
+        }
+
+        .cart-total {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d5a27;
+            text-align: right;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        /* Карта лояльности */
+        .loyalty-card {
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c3e 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .loyalty-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .loyalty-title {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .loyalty-points {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffd54f;
+        }
+
+        .loyalty-progress {
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .loyalty-progress-bar {
+            height: 100%;
+            background-color: #ffd54f;
+            border-radius: 5px;
+            transition: width 0.5s;
+        }
+
+        .loyalty-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #c8e6c9;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .admin-indicator {
+            background-color: #d32f2f;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+            display: none;
+        }
+
+        .db-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e8f5e9;
+            border-radius: 6px;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4caf50;
+        }
+
+        .status-indicator.offline {
+            background-color: #f44336;
+        }
+
+        /* Секция "О нас" */
+        .about-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .about-text h3 {
+            color: #2d5a27;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .contact-info {
+            background-color: #f8f4e9;
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        .contact-info h4 {
+            color: #2d5a27;
+            margin-bottom: 15px;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .contact-info a {
+            color: #4a7c3e;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Кнопка режима админа */
+        .admin-mode-btn {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .admin-mode-btn:hover {
+            background-color: #c62828;
+        }
+
+        .admin-mode-btn.active {
+            background-color: #4caf50;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .admin-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-buttons-admin {
+                grid-column: span 1;
+            }
+            
+            .tea-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .user-info span {
+                display: none;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>Чайный магазин "Хрюшка"</h1>
+                <div class="admin-indicator" id="adminIndicator">Администратор</div>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="active">Главная</a>
+                <a href="#about">О нас</a>
+                
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <i class="fas fa-user user-icon"></i>
+                    <span id="userName"></span>
+                </div>
+                
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <div class="cart-count" id="cartCount">0</div>
+                </div>
+                
+                <!-- Кнопка переключения режима админа (видна только админу) -->
+                <button class="admin-mode-btn" id="adminModeBtn" style="display: none;">Режим админа</button>
+                
+                <button class="login-toggle" id="loginToggle">Войти</button>
+                <button class="register-toggle" id="registerToggle">Регистрация</button>
+                <button class="logout-btn" id="logoutBtn" style="display: none;">Выйти</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="catalog">
+            <h2 class="section-title">Наш ассортимент чая</h2>
+            <div class="tea-grid" id="teaGrid">
+                <!-- Чайные карточки будут сгенерированы JavaScript -->
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Добро пожаловать в чайный магазин "Хрюшка"!</h3>
+                    <p>Мы — уютный чайный магазин, который предлагает вам самые лучшие сорта чая со всего мира. Наша миссия — делиться с вами искусством чаепития и помогать находить тот самый чай, который станет вашим любимым.</p>
+                    <p>В нашем ассортименте вы найдете как классические черные и зеленые чаи, так и экзотические улуны, пуэры, травяные и фруктовые сборы. Мы тщательно отбираем каждого поставщика, чтобы гарантировать высокое качество и свежесть наших продуктов.</p>
+                    <p>Присоединяйтесь к нашему чайному клубу и откройте для себя мир изысканных вкусов и ароматов!</p>
+                </div>
+                <div class="contact-info">
+                    <h4>Контакты</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Адрес: г. Москва, ул. Чайная, д. 5</p>
+                    <p><i class="fas fa-phone"></i> Телефон: <a href="tel:+79991234567">+7 (999) 123-45-67</a></p>
+                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:info@hryushka-tea.ru">info@hryushka-tea.ru</a></p>
+                    <p><i class="fas fa-clock"></i> Время работы: ежедневно с 10:00 до 22:00</p>
+                    <p><i class="fas fa-truck"></i> Доставка: по всей России, от 1 дня</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="admin-panel" id="adminPanel">
+            <h2>Панель управления магазином</h2>
+            
+            <div class="alert" id="adminAlert"></div>
+            
+            <div class="db-status" id="dbStatus">
+                <div class="status-indicator" id="dbStatusIndicator"></div>
+                <span id="dbStatusText">Подключение к базе данных...</span>
+            </div>
+            
+            <div class="admin-form">
+                <div class="form-group">
+                    <label for="teaName">Название чая:</label>
+                    <input type="text" id="teaName" placeholder="Например, Зеленый чай с жасмином">
+                </div>
+                
+                <div class="form-group">
+                    <label for="teaType">Тип чая:</label>
+                    <select id="teaType">
+                        <option value="зеленый">Зеленый</option>
+                        <option value="черный">Черный</option>
+                        <option value="улун">Улун</option>
+                        <option value="пуэр">Пуэр</option>
+                        <option value="травяной">Травяной</option>
+                        <option value="фруктовый">Фруктовый</option>
+                        <option value="белый">Белый</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="teaPrice">Цена (руб./упаковка 500г):</label>
+                    <input type="number" id="teaPrice" min="0" step="50" value="500">
+                </div>
+                
+                <div class="form-group">
+                    <label for="teaQuantity">Количество упаковок:</label>
+                    <input type="number" id="teaQuantity" min="0" step="1" value="10">
+                </div>
+                
+                <div class="form-group">
+                    <label for="teaDescription">Описание:</label>
+                    <textarea id="teaDescription" placeholder="Опишите вкус, аромат и особенности чая..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="teaIcon">Иконка (FontAwesome):</label>
+                    <input type="text" id="teaIcon" value="fas fa-mug-hot" placeholder="fas fa-leaf">
+                </div>
+                
+                <div class="form-buttons-admin">
+                    <button class="add-btn" id="addTeaBtn">Добавить новый чай</button>
+                    <button class="save-btn" id="saveDataBtn">Сохранить в data.json</button>
+                    <button class="export-btn" id="exportDataBtn">Экспорт данных</button>
+                    <button class="import-btn" id="importDataBtn">Импорт данных</button>
+                </div>
+            </div>
+            
+            <div class="loyalty-card" id="adminLoyaltySection" style="display: none;">
+                <h3>Статистика системы лояльности</h3>
+                <p>Всего зарегистрированных пользователей: <span id="totalUsers">0</span></p>
+                <p>Всего начислено бонусных баллов: <span id="totalPoints">0</span></p>
+                <p>Всего оформлено заказов: <span id="totalOrders">0</span></p>
+                <p>Общая сумма всех заказов: <span id="totalSales">0</span> руб.</p>
+            </div>
+        </section>
+        
+        <div id="loyaltyCardSection" style="display: none;">
+            <!-- Карта лояльности будет отображаться здесь для пользователей -->
+        </div>
+    </main>
+
+    <!-- Модальные окна остаются без изменений -->
+    <!-- Модальное окно входа -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Вход в аккаунт</h3>
+                <button class="close-btn" id="closeLogin">&times;</button>
+            </div>
+            <div class="alert" id="loginAlert"></div>
+            <div class="form-group">
+                <label for="loginEmail">Email:</label>
+                <input type="email" id="loginEmail" placeholder="Введите ваш email">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Пароль:</label>
+                <input type="password" id="loginPassword" placeholder="Введите пароль">
+            </div>
+            <div class="form-buttons">
+                <button class="submit-btn" id="loginSubmit">Войти</button>
+                <button class="cancel-btn" id="cancelLogin">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно регистрации -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Регистрация</h3>
+                <button class="close-btn" id="closeRegister">&times;</button>
+            </div>
+            <div class="alert" id="registerAlert"></div>
+            <div class="form-group">
+                <label for="registerName">Имя:</label>
+                <input type="text" id="registerName" placeholder="Введите ваше имя">
+            </div>
+            <div class="form-group">
+                <label for="registerEmail">Email:</label>
+                <input type="email" id="registerEmail" placeholder="Введите ваш email">
+            </div>
+            <div class="form-group">
+                <label for="registerPassword">Пароль:</label>
+                <input type="password" id="registerPassword" placeholder="Придумайте пароль">
+            </div>
+            <div class="form-group">
+                <label for="registerConfirmPassword">Подтверждение пароля:</label>
+                <input type="password" id="registerConfirmPassword" placeholder="Повторите пароль">
+            </div>
+            <div class="form-buttons">
+                <button class="submit-btn" id="registerSubmit">Зарегистрироваться</button>
+                <button class="cancel-btn" id="cancelRegister">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно корзины -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Корзина покупок</h3>
+                <button class="close-btn" id="closeCart">&times;</button>
+            </div>
+            <div class="alert" id="cartAlert"></div>
+            <div class="cart-items" id="cartItems">
+                <!-- Товары в корзине будут отображаться здесь -->
+            </div>
+            <div class="cart-total">
+                Итого: <span id="cartTotal">0</span> руб.
+            </div>
+            <div class="form-buttons">
+                <button class="submit-btn" id="checkoutBtn">Оформить заказ</button>
+                <button class="cancel-btn" id="clearCartBtn">Очистить корзину</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно редактирования товара -->
+    <div class="modal" id="editTeaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Редактирование товара</h3>
+                <button class="close-btn" id="closeEditTea">&times;</button>
+            </div>
+            <div class="alert" id="editTeaAlert"></div>
+            <div class="form-group">
+                <label for="editTeaName">Название чая:</label>
+                <input type="text" id="editTeaName" placeholder="Название чая">
+            </div>
+            
+            <div class="form-group">
+                <label for="editTeaType">Тип чая:</label>
+                <select id="editTeaType">
+                    <option value="зеленый">Зеленый</option>
+                    <option value="черный">Черный</option>
+                    <option value="улун">Улун</option>
+                    <option value="пуэр">Пуэр</option>
+                    <option value="травяной">Травяной</option>
+                    <option value="фруктовый">Фруктовый</option>
+                    <option value="белый">Белый</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="editTeaPrice">Цена (руб./упаковка 500г):</label>
+                    <input type="number" id="editTeaPrice" min="0" step="50" value="500">
+                </div>
+                
+                <div class="form-group">
+                    <label for="editTeaQuantity">Количество упаковок:</label>
+                    <input type="number" id="editTeaQuantity" min="0" step="1" value="10">
+                </div>
+                
+                <div class="form-group">
+                    <label for="editTeaDescription">Описание:</label>
+                    <textarea id="editTeaDescription" placeholder="Описание чая..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editTeaIcon">Иконка (FontAwesome):</label>
+                    <input type="text" id="editTeaIcon" value="fas fa-mug-hot" placeholder="fas fa-leaf">
+                </div>
+                
+                <input type="hidden" id="editTeaId">
+                
+                <div class="form-buttons">
+                    <button class="submit-btn" id="saveEditTeaBtn">Сохранить изменения</button>
+                    <button class="cancel-btn" id="cancelEditTeaBtn">Отмена</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container footer-content">
+                <div class="footer-links">
+                    <a href="#about">Контакты</a>
+                    <a href="#">Доставка и оплата</a>
+                    <a href="#">О компании</a>
+                    <a href="#">Политика конфиденциальности</a>
+                </div>
+                <p class="copyright">© 2023 Чайный магазин "Хрюшка". Все права защищены.</p>
+            </div>
+        </footer>
+
+        <script>
+            // Конфигурация администратора
+            const ADMIN_CONFIG = {
+                isAdminMode: true, // true - включить режим админа, false - выключить
+                adminEmail: "admin@teashop.ru",
+                adminPassword: "admin123"
+            };
+
+            // Инициализация базы данных
+            let teaShopDatabase = {
+                teas: [
+                    {
+                        id: 1,
+                        name: "Зеленый чай с жасмином",
+                        type: "зеленый",
+                        price: 750,
+                        quantity: 15,
+                        description: "Нежный зеленый чай с цветками жасмина, обладающий тонким цветочным ароматом и освежающим вкусом. Упаковка 500г.",
+                        icon: "fas fa-mug-hot"
+                    },
+                    {
+                        id: 2,
+                        name: "Ассам черный",
+                        type: "черный",
+                        price: 650,
+                        quantity: 12,
+                        description: "Крепкий индийский черный чай с насыщенным вкусом и ярким янтарным настоем. Упаковка 500г.",
+                        icon: "fas fa-coffee"
+                    },
+                    {
+                        id: 3,
+                        name: "Те Гуань Инь",
+                        type: "улун",
+                        price: 1850,
+                        quantity: 8,
+                        description: "Знаменитый улун с многогранным вкусом, сочетающим ноты орхидеи, сирени и свежих фруктов. Упаковка 500г.",
+                        icon: "fas fa-leaf"
+                    },
+                    {
+                        id: 4,
+                        name: "Пуэр выдержанный",
+                        type: "пуэр",
+                        price: 2200,
+                        quantity: 6,
+                        description: "Выдержанный пуэр с землистым вкусом и глубоким, сложным ароматом с нотками ореха и сухофруктов. Упаковка 500г.",
+                        icon: "fas fa-fire"
+                    },
+                    {
+                        id: 5,
+                        name: "Ройбуш с ванилью",
+                        type: "травяной",
+                        price: 550,
+                        quantity: 20,
+                        description: "Напиток из южноафриканского растения ройбуш с добавлением натуральной ванили. Упаковка 500г.",
+                        icon: "fas fa-seedling"
+                    },
+                    {
+                        id: 6,
+                        name: "Ягодный микс",
+                        type: "фруктовый",
+                        price: 480,
+                        quantity: 25,
+                        description: "Фруктово-ягодный чай с кусочками клубники, малины, черники и гибискуса. Упаковка 500г.",
+                        icon: "fas fa-berry"
+                    }
+                ],
+                users: [
+                    {
+                        id: 1,
+                        name: "Администратор",
+                        email: "admin@teashop.ru",
+                        password: "admin123",
+                        isAdmin: true,
+                        loyaltyPoints: 0,
+                        joinDate: "2023-01-01T00:00:00.000Z"
+                    }
+                ],
+                orders: [],
+                loyaltySettings: {
+                    pointsPerPurchase: 5,
+                    levels: [
+                        { points: 0, name: "Новичок", discount: 0 },
+                        { points: 100, name: "Любитель", discount: 5 },
+                        { points: 300, name: "Знаток", discount: 10 },
+                        { points: 600, name: "Гурман", discount: 15 },
+                        { points: 1000, name: "Чайный мастер", discount: 20 }
+                    ]
+                }
+            };
+
+            // Текущий пользователь и корзина
+            let currentUser = null;
+            let cart = [];
+            
+            // Флаг режима администратора
+            let isAdminModeActive = false;
+            
+            // Переменная для отслеживания редактируемого товара
+            let editingTeaId = null;
+
+            // Функция для отображения уведомлений
+            function showAlert(message, type, elementId = null) {
+                const alert = elementId ? document.getElementById(elementId) : document.getElementById('adminAlert');
+                if (alert) {
+                    alert.textContent = message;
+                    alert.className = `alert alert-${type}`;
+                    alert.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        alert.style.display = 'none';
+                    }, 3000);
+                }
+            }
+
+            // Функция для отображения чайных карточек
+            function renderTeaCards() {
+                const teaGrid = document.getElementById('teaGrid');
+                teaGrid.innerHTML = '';
+                
+                teaShopDatabase.teas.forEach(tea => {
+                    const isLowStock = tea.quantity < 3;
+                    const maxQuantity = Math.min(tea.quantity, 10);
+                    
+                    const teaCard = document.createElement('div');
+                    teaCard.className = 'tea-card';
+                    teaCard.dataset.id = tea.id;
+                    
+                    let quantityOptions = '';
+                    for (let i = 1; i <= maxQuantity; i++) {
+                        quantityOptions += `<option value="${i}">${i} упак.</option>`;
+                    }
+                    
+                    teaCard.innerHTML = `
+                        <div class="tea-image">
+                            <i class="${tea.icon}"></i>
+                        </div>
+                        <div class="tea-info">
+                            <div class="tea-name">${tea.name}</div>
+                            <div class="tea-description">${tea.description}</div>
+                            <div class="tea-price">${tea.price} руб./упаковка</div>
+                            <div class="tea-quantity">
+                                <span class="quantity-label">Доступно:</span>
+                                <span class="quantity-value ${isLowStock ? 'low-stock' : ''}">${tea.quantity} упак.</span>
+                            </div>
+                            <div class="buy-section">
+                                <select class="quantity-select" id="quantitySelect${tea.id}">
+                                    ${quantityOptions}
+                                </select>
+                                <button class="buy-btn" data-id="${tea.id}">В корзину</button>
+                            </div>
+                            <div class="admin-controls">
+                                <h3>Управление товаром</h3>
+                                <div class="quantity-adjust">
+                                    <input type="number" class="quantity-input" value="${tea.quantity}" min="0" step="1">
+                                    <button class="update-btn" data-id="${tea.id}">Обновить количество</button>
+                                </div>
+                                <div class="admin-buttons">
+                                    <button class="edit-btn" data-id="${tea.id}">Редактировать товар</button>
+                                    <button class="delete-btn" data-id="${tea.id}">Удалить товар</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    teaGrid.appendChild(teaCard);
+                    
+                    // Обработчики для обычных пользователей
+                    const buyBtn = teaCard.querySelector('.buy-btn');
+                    buyBtn.addEventListener('click', () => {
+                        const quantitySelect = teaCard.querySelector(`#quantitySelect${tea.id}`);
+                        const quantity = parseInt(quantitySelect.value);
+                        addToCart(tea.id, quantity);
+                    });
+                    
+                    // Обработчики для администратора
+                    const updateBtn = teaCard.querySelector('.update-btn');
+                    const quantityInput = teaCard.querySelector('.quantity-input');
+                    const editBtn = teaCard.querySelector('.edit-btn');
+                    const deleteBtn = teaCard.querySelector('.delete-btn');
+                    
+                    updateBtn.addEventListener('click', () => {
+                        const newQuantity = parseInt(quantityInput.value);
+                        if (!isNaN(newQuantity) && newQuantity >= 0) {
+                            updateTeaQuantity(tea.id, newQuantity);
+                        } else {
+                            showAlert('Пожалуйста, введите корректное количество', 'error');
+                        }
+                    });
+                    
+                    editBtn.addEventListener('click', () => {
+                        openEditTeaModal(tea.id);
+                    });
+                    
+                    deleteBtn.addEventListener('click', () => {
+                        deleteTea(tea.id);
+                    });
+                });
+                
+                // Показываем/скрываем элементы управления администратора
+                updateAdminControlsVisibility();
+            }
+
+            // Функция обновления количества чая
+            function updateTeaQuantity(id, newQuantity) {
+                const teaIndex = teaShopDatabase.teas.findIndex(tea => tea.id === id);
+                if (teaIndex !== -1) {
+                    teaShopDatabase.teas[teaIndex].quantity = newQuantity;
+                    renderTeaCards();
+                    showAlert(`Количество чая "${teaShopDatabase.teas[teaIndex].name}" обновлено до ${newQuantity} упак.`, 'success');
+                    saveDatabaseToLocalStorage();
+                }
+            }
+
+            // Функция удаления товара
+            function deleteTea(id) {
+                if (!confirm('Вы уверены, что хотите удалить этот товар?')) {
+                    return;
+                }
+                
+                const teaIndex = teaShopDatabase.teas.findIndex(tea => tea.id === id);
+                if (teaIndex !== -1) {
+                    const teaName = teaShopDatabase.teas[teaIndex].name;
+                    teaShopDatabase.teas.splice(teaIndex, 1);
+                    renderTeaCards();
+                    showAlert(`Товар "${teaName}" удален`, 'success');
+                    saveDatabaseToLocalStorage();
+                }
+            }
+
+            // Функция открытия модального окна редактирования товара
+            function openEditTeaModal(teaId) {
+                const tea = teaShopDatabase.teas.find(t => t.id === teaId);
+                if (!tea) return;
+                
+                editingTeaId = teaId;
+                
+                document.getElementById('editTeaId').value = tea.id;
+                document.getElementById('editTeaName').value = tea.name;
+                document.getElementById('editTeaType').value = tea.type;
+                document.getElementById('editTeaPrice').value = tea.price;
+                document.getElementById('editTeaQuantity').value = tea.quantity;
+                document.getElementById('editTeaDescription').value = tea.description;
+                document.getElementById('editTeaIcon').value = tea.icon;
+                
+                openModal('editTeaModal');
+            }
+
+            // Функция сохранения изменений товара
+            function saveEditedTea() {
+                const id = parseInt(document.getElementById('editTeaId').value);
+                const name = document.getElementById('editTeaName').value;
+                const type = document.getElementById('editTeaType').value;
+                const price = parseInt(document.getElementById('editTeaPrice').value);
+                const quantity = parseInt(document.getElementById('editTeaQuantity').value);
+                const description = document.getElementById('editTeaDescription').value;
+                const icon = document.getElementById('editTeaIcon').value;
+                
+                if (!name || !description) {
+                    showAlert('Пожалуйста, заполните все обязательные поля', 'error', 'editTeaAlert');
+                    return;
+                }
+                
+                if (price <= 0 || quantity < 0) {
+                    showAlert('Цена и количество должны быть положительными числами', 'error', 'editTeaAlert');
+                    return;
+                }
+                
+                const teaIndex = teaShopDatabase.teas.findIndex(tea => tea.id === id);
+                if (teaIndex !== -1) {
+                    teaShopDatabase.teas[teaIndex] = {
+                        id,
+                        name,
+                        type,
+                        price,
+                        quantity,
+                        description,
+                        icon: icon || 'fas fa-mug-hot'
+                    };
+                    
+                    renderTeaCards();
+                    closeModal('editTeaModal');
+                    showAlert(`Товар "${name}" успешно обновлен!`, 'success');
+                    saveDatabaseToLocalStorage();
+                }
+            }
+
+            // Функция добавления нового чая
+            function addNewTea() {
+                const name = document.getElementById('teaName').value;
+                const type = document.getElementById('teaType').value;
+                const price = parseInt(document.getElementById('teaPrice').value);
+                const quantity = parseInt(document.getElementById('teaQuantity').value);
+                const description = document.getElementById('teaDescription').value;
+                const icon = document.getElementById('teaIcon').value;
+                
+                if (!name || !description) {
+                    showAlert('Пожалуйста, заполните все обязательные поля', 'error', 'adminAlert');
+                    return;
+                }
+                
+                if (price <= 0 || quantity < 0) {
+                    showAlert('Цена и количество должны быть положительными числами', 'error', 'adminAlert');
+                    return;
+                }
+                
+                const newId = teaShopDatabase.teas.length > 0 
+                    ? Math.max(...teaShopDatabase.teas.map(tea => tea.id)) + 1 
+                    : 1;
+                
+                const newTea = {
+                    id: newId,
+                    name,
+                    type,
+                    price,
+                    quantity,
+                    description,
+                    icon: icon || 'fas fa-mug-hot'
+                };
+                
+                teaShopDatabase.teas.push(newTea);
+                renderTeaCards();
+                
+                document.getElementById('teaName').value = '';
+                document.getElementById('teaDescription').value = '';
+                document.getElementById('teaPrice').value = 500;
+                document.getElementById('teaQuantity').value = 10;
+                document.getElementById('teaIcon').value = 'fas fa-mug-hot';
+                
+                showAlert(`Чай "${name}" успешно добавлен!`, 'success', 'adminAlert');
+                saveDatabaseToLocalStorage();
+            }
+
+            // Включение/выключение режима администратора
+            function toggleAdminMode() {
+                const adminPanel = document.getElementById('adminPanel');
+                const adminIndicator = document.getElementById('adminIndicator');
+                const adminControls = document.querySelectorAll('.admin-controls');
+                const adminLoyaltySection = document.getElementById('adminLoyaltySection');
+                const adminModeBtn = document.getElementById('adminModeBtn');
+                
+                // Проверяем, является ли текущий пользователь администратором
+                if (!currentUser || !currentUser.isAdmin) {
+                    showAlert('Только администраторы могут управлять магазином', 'error');
+                    return;
+                }
+                
+                if (!isAdminModeActive) {
+                    // Включаем режим администратора
+                    isAdminModeActive = true;
+                    adminPanel.style.display = 'block';
+                    adminIndicator.style.display = 'inline-block';
+                    adminLoyaltySection.style.display = 'block';
+                    adminModeBtn.classList.add('active');
+                    adminModeBtn.textContent = 'Режим админа (вкл)';
+                    
+                    // Обновляем статистику
+                    updateAdminStats();
+                    updateDBStatus();
+                    
+                    adminControls.forEach(control => {
+                        control.style.display = 'block';
+                    });
+                    
+                    showAlert('Режим управления магазином включен', 'success');
+                } else {
+                    // Выключаем режим администратора
+                    isAdminModeActive = false;
+                    adminPanel.style.display = 'none';
+                    adminIndicator.style.display = 'none';
+                    adminLoyaltySection.style.display = 'none';
+                    adminModeBtn.classList.remove('active');
+                    adminModeBtn.textContent = 'Режим админа';
+                    
+                    adminControls.forEach(control => {
+                        control.style.display = 'none';
+                    });
+                    
+                    showAlert('Режим управления магазином выключен', 'success');
+                }
+            }
+
+            // Обновление видимости элементов управления администратора
+            function updateAdminControlsVisibility() {
+                const adminControls = document.querySelectorAll('.admin-controls');
+                
+                if (isAdminModeActive && currentUser && currentUser.isAdmin) {
+                    adminControls.forEach(control => {
+                        control.style.display = 'block';
+                    });
+                } else {
+                    adminControls.forEach(control => {
+                        control.style.display = 'none';
+                    });
+                }
+            }
+
+            // Обновление статистики для администратора
+            function updateAdminStats() {
+                const totalUsers = teaShopDatabase.users.length;
+                const totalPoints = teaShopDatabase.users.reduce((sum, user) => sum + user.loyaltyPoints, 0);
+                const totalOrders = teaShopDatabase.orders.length;
+                const totalSales = teaShopDatabase.orders.reduce((sum, order) => sum + order.total, 0);
+                
+                document.getElementById('totalUsers').textContent = totalUsers;
+                document.getElementById('totalPoints').textContent = totalPoints;
+                document.getElementById('totalOrders').textContent = totalOrders;
+                document.getElementById('totalSales').textContent = totalSales;
+            }
+
+            // Обновление статуса базы данных
+            function updateDBStatus() {
+                const statusIndicator = document.getElementById('dbStatusIndicator');
+                const statusText = document.getElementById('dbStatusText');
+                
+                // Проверяем, есть ли сохраненные данные
+                const hasLocalData = localStorage.getItem('teaShopDatabase') !== null;
+                
+                if (hasLocalData) {
+                    statusIndicator.className = 'status-indicator';
+                    statusText.textContent = 'Данные сохранены локально';
+                } else {
+                    statusIndicator.className = 'status-indicator offline';
+                    statusText.textContent = 'Локальные данные не найдены';
+                }
+            }
+
+            // Функции для работы с корзиной
+            function addToCart(teaId, quantity) {
+                const tea = teaShopDatabase.teas.find(t => t.id === teaId);
+                if (!tea) return;
+                
+                if (tea.quantity < quantity) {
+                    showAlert(`Извините, в наличии только ${tea.quantity} упаковок`, 'error');
+                    return;
+                }
+                
+                const existingItemIndex = cart.findIndex(item => item.id === teaId);
+                
+                if (existingItemIndex >= 0) {
+                    const newQuantity = cart[existingItemIndex].quantity + quantity;
+                    if (newQuantity > tea.quantity) {
+                        showAlert(`Нельзя добавить больше ${tea.quantity} упаковок`, 'error');
+                        return;
+                    }
+                    cart[existingItemIndex].quantity = newQuantity;
+                } else {
+                    cart.push({
+                        id: tea.id,
+                        name: tea.name,
+                        price: tea.price,
+                        quantity: quantity,
+                        icon: tea.icon
+                    });
+                }
+                
+                updateCartCount();
+                showAlert(`Добавлено ${quantity} упак. "${tea.name}" в корзину`, 'success');
+                saveCart();
+            }
+
+            function updateCartCount() {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                document.getElementById('cartCount').textContent = totalItems;
+            }
+
+            function renderCart() {
+                const cartItems = document.getElementById('cartItems');
+                const cartTotal = document.getElementById('cartTotal');
+                
+                cartItems.innerHTML = '';
+                
+                if (cart.length === 0) {
+                    cartItems.innerHTML = '<p>Корзина пуста</p>';
+                    cartTotal.textContent = '0';
+                    return;
+                }
+                
+                let total = 0;
+                
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>${item.quantity} упак. × ${item.price} руб. = ${itemTotal} руб.</p>
+                        </div>
+                        <button class="remove-btn" data-index="${index}"><i class="fas fa-trash"></i></button>
+                    `;
+                    
+                    cartItems.appendChild(cartItem);
+                    
+                    const removeBtn = cartItem.querySelector('.remove-btn');
+                    removeBtn.addEventListener('click', () => {
+                        removeFromCart(index);
+                    });
+                });
+                
+                cartTotal.textContent = total;
+            }
+
+            function removeFromCart(index) {
+                cart.splice(index, 1);
+                updateCartCount();
+                renderCart();
+                saveCart();
+            }
+
+            function clearCart() {
+                cart = [];
+                updateCartCount();
+                renderCart();
+                saveCart();
+                showAlert('Корзина очищена', 'success', 'cartAlert');
+            }
+
+            // Функции для работы с пользователями
+            function login(email, password) {
+                const user = teaShopDatabase.users.find(u => u.email === email && u.password === password);
+                
+                if (!user) {
+                    showAlert('Неверный email или пароль', 'error', 'loginAlert');
+                    return false;
+                }
+                
+                currentUser = {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    isAdmin: user.isAdmin,
+                    loyaltyPoints: user.loyaltyPoints || 0
+                };
+                
+                updateUserUI();
+                saveDatabaseToLocalStorage();
+                showAlert(`Добро пожаловать, ${user.name}!`, 'success');
+                
+                closeModal('loginModal');
+                return true;
+            }
+
+            function register(name, email, password) {
+                const existingUser = teaShopDatabase.users.find(u => u.email === email);
+                
+                if (existingUser) {
+                    showAlert('Пользователь с таким email уже существует', 'error', 'registerAlert');
+                    return false;
+                }
+                
+                const newId = teaShopDatabase.users.length > 0 
+                    ? Math.max(...teaShopDatabase.users.map(u => u.id)) + 1 
+                    : 1;
+                
+                const newUser = {
+                    id: newId,
+                    name,
+                    email,
+                    password,
+                    isAdmin: false,
+                    loyaltyPoints: 0,
+                    joinDate: new Date().toISOString()
+                };
+                
+                teaShopDatabase.users.push(newUser);
+                currentUser = {
+                    id: newUser.id,
+                    name: newUser.name,
+                    email: newUser.email,
+                    isAdmin: newUser.isAdmin,
+                    loyaltyPoints: newUser.loyaltyPoints
+                };
+                
+                updateUserUI();
+                saveDatabaseToLocalStorage();
+                showAlert(`Регистрация успешна! Добро пожаловать, ${name}!`, 'success');
+                closeModal('registerModal');
+                return true;
+            }
+
+            function logout() {
+                // Выключаем режим администратора при выходе
+                if (isAdminModeActive) {
+                    toggleAdminMode();
+                }
+                
+                currentUser = null;
+                updateUserUI();
+                showAlert('Вы вышли из системы', 'success');
+                saveDatabaseToLocalStorage();
+            }
+
+            function updateUserUI() {
+                const userInfo = document.getElementById('userInfo');
+                const userName = document.getElementById('userName');
+                const loginToggle = document.getElementById('loginToggle');
+                const registerToggle = document.getElementById('registerToggle');
+                const logoutBtn = document.getElementById('logoutBtn');
+                const loyaltyCardSection = document.getElementById('loyaltyCardSection');
+                const adminIndicator = document.getElementById('adminIndicator');
+                const adminModeBtn = document.getElementById('adminModeBtn');
+                
+                if (currentUser) {
+                    userInfo.style.display = 'flex';
+                    userName.textContent = currentUser.name;
+                    loginToggle.style.display = 'none';
+                    registerToggle.style.display = 'none';
+                    logoutBtn.style.display = 'block';
+                    
+                    // Показываем кнопку режима админа только если пользователь админ
+                    if (currentUser.isAdmin && ADMIN_CONFIG.isAdminMode) {
+                        adminModeBtn.style.display = 'block';
+                    } else {
+                        adminModeBtn.style.display = 'none';
+                    }
+                    
+                    if (!currentUser.isAdmin) {
+                        renderLoyaltyCard();
+                        loyaltyCardSection.style.display = 'block';
+                        adminIndicator.style.display = 'none';
+                    } else {
+                        loyaltyCardSection.style.display = 'none';
+                        adminIndicator.style.display = 'none';
+                    }
+                } else {
+                    userInfo.style.display = 'none';
+                    loginToggle.style.display = 'block';
+                    registerToggle.style.display = 'block';
+                    logoutBtn.style.display = 'none';
+                    loyaltyCardSection.style.display = 'none';
+                    adminIndicator.style.display = 'none';
+                    adminModeBtn.style.display = 'none';
+                }
+                
+                // Обновляем видимость элементов управления администратора
+                updateAdminControlsVisibility();
+            }
+
+            // Функция для отображения карты лояльности
+            function renderLoyaltyCard() {
+                const loyaltyCardSection = document.getElementById('loyaltyCardSection');
+                
+                if (!currentUser || currentUser.isAdmin) return;
+                
+                const points = currentUser.loyaltyPoints || 0;
+                const levels = teaShopDatabase.loyaltySettings.levels;
+                
+                let currentLevel = levels[0];
+                let nextLevel = levels[1];
+                
+                for (let i = levels.length - 1; i >= 0; i--) {
+                    if (points >= levels[i].points) {
+                        currentLevel = levels[i];
+                        nextLevel = i < levels.length - 1 ? levels[i + 1] : null;
+                        break;
+                    }
+                }
+                
+                const progress = nextLevel 
+                    ? Math.min(100, ((points - currentLevel.points) / (nextLevel.points - currentLevel.points)) * 100)
+                    : 100;
+                
+                loyaltyCardSection.innerHTML = `
+                    <div class="loyalty-card">
+                        <div class="loyalty-header">
+                            <div class="loyalty-title">Карта лояльности</div>
+                            <div class="loyalty-points">${points} баллов</div>
+                        </div>
+                        <div class="loyalty-progress">
+                            <div class="loyalty-progress-bar" style="width: ${progress}%"></div>
+                        </div>
+                        <div class="loyalty-info">
+                            <div>Текущий уровень: ${currentLevel.name}</div>
+                            <div>Скидка: ${currentLevel.discount}%</div>
+                        </div>
+                        <div class="loyalty-info">
+                            <div>${nextLevel ? `До уровня "${nextLevel.name}": ${nextLevel.points - points} баллов` : 'Вы достигли максимального уровня!'}</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Функция оформления заказа
+            function checkout() {
+                if (!currentUser) {
+                    showAlert('Для оформления заказа необходимо войти в систему', 'error', 'cartAlert');
+                    closeModal('cartModal');
+                    openModal('loginModal');
+                    return;
+                }
+                
+                if (cart.length === 0) {
+                    showAlert('Корзина пуста', 'error', 'cartAlert');
+                    return;
+                }
+                
+                for (const item of cart) {
+                    const tea = teaShopDatabase.teas.find(t => t.id === item.id);
+                    if (!tea || tea.quantity < item.quantity) {
+                        showAlert(`Товар "${item.name}" закончился или его количество изменилось`, 'error', 'cartAlert');
+                        renderTeaCards();
+                        renderCart();
+                        return;
+                    }
+                }
+                
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const pointsEarned = Math.floor(total / 100) * teaShopDatabase.loyaltySettings.pointsPerPurchase;
+                
+                const orderId = teaShopDatabase.orders.length > 0 
+                    ? Math.max(...teaShopDatabase.orders.map(o => o.id)) + 1 
+                    : 1;
+                
+                const order = {
+                    id: orderId,
+                    userId: currentUser.id,
+                    items: [...cart],
+                    total: total,
+                    pointsEarned: pointsEarned,
+                    date: new Date().toISOString(),
+                    status: 'completed'
+                };
+                
+                teaShopDatabase.orders.push(order);
+                
+                for (const item of cart) {
+                    const teaIndex = teaShopDatabase.teas.findIndex(t => t.id === item.id);
+                    if (teaIndex !== -1) {
+                        teaShopDatabase.teas[teaIndex].quantity -= item.quantity;
+                    }
+                }
+                
+                const userIndex = teaShopDatabase.users.findIndex(u => u.id === currentUser.id);
+                if (userIndex !== -1) {
+                    teaShopDatabase.users[userIndex].loyaltyPoints += pointsEarned;
+                    currentUser.loyaltyPoints += pointsEarned;
+                }
+                
+                clearCart();
+                
+                renderTeaCards();
+                renderLoyaltyCard();
+                
+                if (isAdminModeActive) {
+                    updateAdminStats();
+                }
+                
+                saveDatabaseToLocalStorage();
+                showAlert(`Заказ №${orderId} успешно оформлен! Начислено ${pointsEarned} бонусных баллов.`, 'success', 'cartAlert');
+                closeModal('cartModal');
+            }
+
+            // Функции для работы с модальными окнами
+            function openModal(modalId) {
+                document.getElementById(modalId).style.display = 'flex';
+            }
+
+            function closeModal(modalId) {
+                document.getElementById(modalId).style.display = 'none';
+            }
+
+            // Сохранение данных в localStorage
+            function saveDatabaseToLocalStorage() {
+                localStorage.setItem('teaShopDatabase', JSON.stringify(teaShopDatabase));
+                if (currentUser) {
+                    localStorage.setItem('teaShopCurrentUser', JSON.stringify(currentUser));
+                }
+            }
+
+            function saveCart() {
+                localStorage.setItem('teaShopCart', JSON.stringify(cart));
+            }
+
+            // Загрузка данных из localStorage
+            function loadDatabaseFromLocalStorage() {
+                const savedData = localStorage.getItem('teaShopDatabase');
+                const savedCart = localStorage.getItem('teaShopCart');
+                const savedUser = localStorage.getItem('teaShopCurrentUser');
+                
+                if (savedData) {
+                    teaShopDatabase = JSON.parse(savedData);
+                }
+                
+                if (savedCart) {
+                    cart = JSON.parse(savedCart);
+                    updateCartCount();
+                }
+                
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    updateUserUI();
+                }
+            }
+
+            // Загрузка данных из файла data.json
+            async function loadDataFromJson() {
+                try {
+                    const response = await fetch('data.json');
+                    if (response.ok) {
+                        const fileData = await response.json();
+                        teaShopDatabase = fileData;
+                        renderTeaCards();
+                        saveDatabaseToLocalStorage();
+                        showAlert('Данные загружены из файла data.json', 'success', 'adminAlert');
+                        updateDBStatus();
+                        return true;
+                    } else {
+                        throw new Error('Файл data.json не найден');
+                    }
+                } catch (error) {
+                    console.log('Файл data.json не найден, используются локальные данные');
+                    loadDatabaseFromLocalStorage();
+                    return false;
+                }
+            }
+
+            // Экспорт данных в файл
+            function exportData() {
+                const dataStr = JSON.stringify(teaShopDatabase, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+                
+                const exportFileDefaultName = 'teaShopData.json';
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+                
+                showAlert('Данные экспортированы в файл', 'success', 'adminAlert');
+            }
+
+            // Импорт данных из файла
+            function importData() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                
+                input.onchange = function(event) {
+                    const file = event.target.files[0];
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        try {
+                            const importedData = JSON.parse(e.target.result);
+                            teaShopDatabase = importedData;
+                            renderTeaCards();
+                            saveDatabaseToLocalStorage();
+                            showAlert('Данные успешно импортированы!', 'success', 'adminAlert');
+                            if (isAdminModeActive) {
+                                updateAdminStats();
+                            }
+                        } catch (error) {
+                            showAlert('Ошибка при импорте данных. Проверьте формат файла.', 'error', 'adminAlert');
+                        }
+                    };
+                    
+                    reader.readAsText(file);
+                };
+                
+                input.click();
+            }
+
+            // Сохранение данных в файл data.json (для GitHub)
+            function saveDataToJson() {
+                const dataStr = JSON.stringify(teaShopDatabase, null, 2);
+                const blob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'data.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showAlert('Файл data.json скачан. Загрузите его в корневую папку репозитория.', 'success', 'adminAlert');
+            }
+
+            // Инициализация при загрузке страницы
+            document.addEventListener('DOMContentLoaded', async () => {
+                // Пытаемся загрузить данные из data.json
+                await loadDataFromJson();
+                
+                // Рендерим чайные карточки
+                renderTeaCards();
+                
+                // Настройка обработчиков событий
+                document.getElementById('addTeaBtn').addEventListener('click', addNewTea);
+                document.getElementById('saveDataBtn').addEventListener('click', saveDataToJson);
+                document.getElementById('exportDataBtn').addEventListener('click', exportData);
+                document.getElementById('importDataBtn').addEventListener('click', importData);
+                document.getElementById('adminModeBtn').addEventListener('click', toggleAdminMode);
+                
+                // Обработчики для редактирования товаров
+                document.getElementById('saveEditTeaBtn').addEventListener('click', saveEditedTea);
+                document.getElementById('cancelEditTeaBtn').addEventListener('click', () => closeModal('editTeaModal'));
+                document.getElementById('closeEditTea').addEventListener('click', () => closeModal('editTeaModal'));
+                
+                // Горячие клавиши для включения режима администратора
+                document.addEventListener('keydown', (e) => {
+                    // Ctrl+Shift+A для включения/выключения режима администратора
+                    if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                        e.preventDefault();
+                        toggleAdminMode();
+                    }
+                    
+                    // Alt+A для быстрого входа как администратор (для разработки)
+                    if (e.altKey && e.key === 'a') {
+                        e.preventDefault();
+                        if (!currentUser) {
+                            // Автоматический вход как администратор
+                            login('admin@teashop.ru', 'admin123');
+                        }
+                    }
+                });
+                
+                // Обработка Enter в форме
+                document.getElementById('teaName').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') addNewTea();
+                });
+                
+                // Обработчики для модальных окон входа
+                document.getElementById('loginToggle').addEventListener('click', () => openModal('loginModal'));
+                document.getElementById('closeLogin').addEventListener('click', () => closeModal('loginModal'));
+                document.getElementById('cancelLogin').addEventListener('click', () => closeModal('loginModal'));
+                document.getElementById('loginSubmit').addEventListener('click', () => {
+                    const email = document.getElementById('loginEmail').value;
+                    const password = document.getElementById('loginPassword').value;
+                    login(email, password);
+                });
+                
+                // Обработчики для модальных окон регистрации
+                document.getElementById('registerToggle').addEventListener('click', () => openModal('registerModal'));
+                document.getElementById('closeRegister').addEventListener('click', () => closeModal('registerModal'));
+                document.getElementById('cancelRegister').addEventListener('click', () => closeModal('registerModal'));
+                document.getElementById('registerSubmit').addEventListener('click', () => {
+                    const name = document.getElementById('registerName').value;
+                    const email = document.getElementById('registerEmail').value;
+                    const password = document.getElementById('registerPassword').value;
+                    const confirmPassword = document.getElementById('registerConfirmPassword').value;
+                    
+                    if (password !== confirmPassword) {
+                        showAlert('Пароли не совпадают', 'error', 'registerAlert');
+                        return;
+                    }
+                    
+                    if (password.length < 6) {
+                        showAlert('Пароль должен содержать минимум 6 символов', 'error', 'registerAlert');
+                        return;
+                    }
+                    
+                    register(name, email, password);
+                });
+                
+                // Обработчики для выхода
+                document.getElementById('logoutBtn').addEventListener('click', logout);
+                
+                // Обработчики для корзины
+                document.getElementById('cartIcon').addEventListener('click', () => {
+                    renderCart();
+                    openModal('cartModal');
+                });
+                document.getElementById('closeCart').addEventListener('click', () => closeModal('cartModal'));
+                document.getElementById('clearCartBtn').addEventListener('click', clearCart);
+                document.getElementById('checkoutBtn').addEventListener('click', checkout);
+                
+                // Закрытие модальных окон при клике вне их
+                window.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('modal')) {
+                        e.target.style.display = 'none';
+                    }
+                });
+                
+                // Обновляем UI пользователя
+                updateUserUI();
+                
+                // Информационное сообщение при первом запуске
+                if (!localStorage.getItem('teaShopFirstVisit')) {
+                    setTimeout(() => {
+                        showAlert('Добро пожаловать в чайный магазин "Хрюшка"! Для входа как администратор используйте: admin@teashop.ru / admin123', 'info');
+                    }, 1000);
+                    localStorage.setItem('teaShopFirstVisit', 'true');
+                }
+            });
+        </script>
+    </body>
+</html>
