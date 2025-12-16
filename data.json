@@ -7,7 +7,8 @@
       "price": 750,
       "quantity": 52,
       "description": "Нежный зеленый чай с цветками жасмина, обладающий тонким цветочным ароматом и освежающим вкусом. Упаковка 500г.",
-      "icon": "fas fa-mug-hot"
+      "icon": "fas fa-mug-hot",
+      "image": "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
     },
     {
       "id": 2,
@@ -16,7 +17,8 @@
       "price": 650,
       "quantity": 52,
       "description": "Крепкий индийский черный чай с насыщенным вкусом и ярким янтарным настоем. Упаковка 500г.",
-      "icon": "fas fa-coffee"
+      "icon": "fas fa-coffee",
+      "image": "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
     },
     {
       "id": 3,
@@ -25,7 +27,8 @@
       "price": 1850,
       "quantity": 52,
       "description": "Знаменитый улун с многогранным вкусом, сочетающим ноты орхидеи, сирени и свежих фруктов. Упаковка 500г.",
-      "icon": "fas fa-leaf"
+      "icon": "fas fa-leaf",
+      "image": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
     },
     {
       "id": 4,
@@ -34,7 +37,8 @@
       "price": 2200,
       "quantity": 6,
       "description": "Выдержанный пуэр с землистым вкусом и глубоким, сложным ароматом с нотками ореха и сухофруктов. Упаковка 500г.",
-      "icon": "fas fa-fire"
+      "icon": "fas fa-fire",
+      "image": "https://images.unsplash.com/photo-1555507036-ab794f27d2e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
     },
     {
       "id": 5,
@@ -43,7 +47,8 @@
       "price": 550,
       "quantity": 16,
       "description": "Напиток из южноафриканского растения ройбуш с добавлением натуральной ванили. Упаковка 500г.",
-      "icon": "fas fa-seedling"
+      "icon": "fas fa-seedling",
+      "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
     },
     {
       "id": 6,
@@ -52,7 +57,8 @@
       "price": 480,
       "quantity": 52,
       "description": "Фруктово-ягодный чай с кусочками клубники, малины, черники и гибискуса. Упаковка 500г.",
-      "icon": "fas fa-berry"
+      "icon": "fas fa-berry",
+      "image": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
     }
   ],
   "users": [
@@ -122,105 +128,6 @@
       "total": 16320,
       "pointsEarned": 815,
       "date": "2025-12-02T19:28:32.399Z",
-      "status": "completed"
-    },
-    {
-      "id": 2,
-      "userId": 2,
-      "items": [
-        {
-          "id": 3,
-          "name": "Те Гуань Инь",
-          "price": 1850,
-          "quantity": 2,
-          "icon": "fas fa-leaf"
-        }
-      ],
-      "total": 3700,
-      "pointsEarned": 185,
-      "date": "2025-12-02T19:28:41.655Z",
-      "status": "completed"
-    },
-    {
-      "id": 3,
-      "userId": 2,
-      "items": [
-        {
-          "id": 2,
-          "name": "Ассам черный",
-          "price": 650,
-          "quantity": 5,
-          "icon": "fas fa-coffee"
-        }
-      ],
-      "total": 3250,
-      "pointsEarned": 160,
-      "date": "2025-12-02T19:28:48.754Z",
-      "status": "completed"
-    },
-    {
-      "id": 4,
-      "userId": 2,
-      "items": [
-        {
-          "id": 3,
-          "name": "Те Гуань Инь",
-          "price": 1850,
-          "quantity": 1,
-          "icon": "fas fa-leaf"
-        },
-        {
-          "id": 2,
-          "name": "Ассам черный",
-          "price": 650,
-          "quantity": 3,
-          "icon": "fas fa-coffee"
-        },
-        {
-          "id": 6,
-          "name": "Ягодный микс",
-          "price": 480,
-          "quantity": 1,
-          "icon": "fas fa-berry"
-        }
-      ],
-      "total": 4280,
-      "pointsEarned": 210,
-      "date": "2025-12-02T19:46:57.848Z",
-      "status": "completed"
-    },
-    {
-      "id": 5,
-      "userId": 2,
-      "items": [
-        {
-          "id": 3,
-          "name": "Те Гуань Инь",
-          "price": 1850,
-          "quantity": 5,
-          "icon": "fas fa-leaf"
-        }
-      ],
-      "total": 9250,
-      "pointsEarned": 460,
-      "date": "2025-12-02T19:47:22.414Z",
-      "status": "completed"
-    },
-    {
-      "id": 6,
-      "userId": 2,
-      "items": [
-        {
-          "id": 3,
-          "name": "Те Гуань Инь",
-          "price": 1850,
-          "quantity": null,
-          "icon": "fas fa-leaf"
-        }
-      ],
-      "total": null,
-      "pointsEarned": null,
-      "date": "2025-12-02T19:47:26.117Z",
       "status": "completed"
     }
   ],
