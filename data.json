@@ -8,7 +8,7 @@
       "quantity": 52,
       "description": "Нежный зеленый чай с цветками жасмина, обладающий тонким цветочным ароматом и освежающим вкусом. Упаковка 500г.",
       "icon": "fas fa-mug-hot",
-      "image": "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      "image": "https://avatars.mds.yandex.net/get-mpic/4973279/img_id212829668602025471.jpeg/orig"
     },
     {
       "id": 2,
@@ -18,7 +18,7 @@
       "quantity": 52,
       "description": "Крепкий индийский черный чай с насыщенным вкусом и ярким янтарным настоем. Упаковка 500г.",
       "icon": "fas fa-coffee",
-      "image": "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      "image": "https://avatars.mds.yandex.net/get-mpic/5281967/2a00000192ec3080e8c2590cab3132027be9/orig"
     },
     {
       "id": 3,
@@ -28,7 +28,7 @@
       "quantity": 52,
       "description": "Знаменитый улун с многогранным вкусом, сочетающим ноты орхидеи, сирени и свежих фруктов. Упаковка 500г.",
       "icon": "fas fa-leaf",
-      "image": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      "image": "https://main-cdn.sbermegamarket.ru/big2/hlr-system/-51/044/499/310/162/054/100051914750b0.jpg"
     },
     {
       "id": 4,
@@ -38,7 +38,7 @@
       "quantity": 6,
       "description": "Выдержанный пуэр с землистым вкусом и глубоким, сложным ароматом с нотками ореха и сухофруктов. Упаковка 500г.",
       "icon": "fas fa-fire",
-      "image": "https://images.unsplash.com/photo-1555507036-ab794f27d2e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      "image": "https://avatars.mds.yandex.net/get-mpic/4742551/2a00000197cb60091d0b728d30ceece2a3a0/orig"
     },
     {
       "id": 5,
@@ -48,7 +48,7 @@
       "quantity": 16,
       "description": "Напиток из южноафриканского растения ройбуш с добавлением натуральной ванили. Упаковка 500г.",
       "icon": "fas fa-seedling",
-      "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      "image": "https://avatars.mds.yandex.net/get-mpic/1884605/img_id5980918064291314793.jpeg/orig"
     },
     {
       "id": 6,
@@ -58,7 +58,7 @@
       "quantity": 52,
       "description": "Фруктово-ягодный чай с кусочками клубники, малины, черники и гибискуса. Упаковка 500г.",
       "icon": "fas fa-berry",
-      "image": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      "image": "https://oreshkashop.ru/pictures/good_id3001/pic_name27ad0d44a07d199831c34893967e2ba6.jpg"
     }
   ],
   "users": [
