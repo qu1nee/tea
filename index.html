@@ -527,7 +527,7 @@
             margin-top: 10px;
         }
 
-        .add-btn, .save-btn, .export-btn, .import-btn {
+        .add-btn, .save-btn, .export-btn, .import-btn, .report-btn {
             background-color: #2d5a27;
             color: white;
             border: none;
@@ -551,6 +551,10 @@
             background-color: #9c27b0;
         }
 
+        .report-btn {
+            background-color: #607d8b;
+        }
+
         .add-btn:hover {
             background-color: #1e3f1a;
         }
@@ -565,6 +569,10 @@
 
         .import-btn:hover {
             background-color: #7b1fa2;
+        }
+
+        .report-btn:hover {
+            background-color: #455a64;
         }
 
         /* Корзина */
@@ -781,6 +789,47 @@
             background-color: #4caf50;
         }
 
+        /* Секция отчета */
+        .report-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .report-section h3 {
+            color: #2d5a27;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .report-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .report-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Модальное окно отчета */
+        .report-preview {
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
@@ -819,6 +868,10 @@
             
             .tea-description {
                 font-size: 15px;
+            }
+            
+            .report-buttons {
+                flex-direction: column;
             }
         }
         
@@ -883,7 +936,7 @@
                     <h3>Добро пожаловать в чайный магазин "Хрюшка"!</h3>
                     <p>Мы — уютный чайный магазин, который предлагает вам самые лучшие сорта чая со всего мира. Наша миссия — делиться с вами искусством чаепития и помогать находить тот самый чай, который станет вашим любимым.</p>
                     <p>В нашем ассортименте вы найдете как классические черные и зеленые чаи, так и экзотические улуны, пуэры, травяные и фруктовые сборы. Мы тщательно отбираем каждого поставщика, чтобы гарантировать высокое качество и свежесть наших продуктов.</p>
-                    <p>Присоединяйтесь к нашему чайному клубу и откройте для себя мир изысканных вкусов и ароматов!</p>
+                    <p>Присоединяйтесь к нашему чайному клубу и откройте для себя мир изыканных вкусов и ароматов!</p>
                 </div>
                 <div class="contact-info">
                     <h4>Контакты</h4>
@@ -959,6 +1012,38 @@
                 </div>
             </div>
             
+            <!-- Новая секция для отчетов по продажам -->
+            <div class="report-section" id="reportSection" style="display: none;">
+                <h3><i class="fas fa-chart-line"></i> Отчеты по продажам</h3>
+                
+                <div class="report-filters">
+                    <div class="form-group">
+                        <label for="reportStartDate">Дата начала:</label>
+                        <input type="date" id="reportStartDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="reportEndDate">Дата окончания:</label>
+                        <input type="date" id="reportEndDate" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="reportType">Тип отчета:</label>
+                        <select id="reportType">
+                            <option value="sales">Отчет по продажам</option>
+                            <option value="products">Отчет по товарам</option>
+                            <option value="customers">Отчет по клиентам</option>
+                            <option value="full">Полный отчет</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="report-buttons">
+                    <button class="report-btn" id="previewReportBtn"><i class="fas fa-eye"></i> Предпросмотр отчета</button>
+                    <button class="report-btn" id="generateSalesReportBtn"><i class="fas fa-file-alt"></i> Сформировать TXT отчет</button>
+                    <button class="report-btn" id="generateDailyReportBtn"><i class="fas fa-calendar-day"></i> Отчет за сегодня</button>
+                    <button class="report-btn" id="generateMonthlyReportBtn"><i class="fas fa-calendar-alt"></i> Отчет за месяц</button>
+                </div>
+            </div>
+            
             <div class="loyalty-card" id="adminLoyaltySection" style="display: none;">
                 <h3>Статистика системы лояльности</h3>
                 <p>Всего зарегистрированных пользователей: <span id="totalUsers">0</span></p>
@@ -1011,7 +1096,7 @@
             </div>
             <div class="form-group">
                 <label for="registerEmail">Email:</label>
-                <input type="email" id="registerEmail" placeholder="Введите ваш email">
+                    <input type="email" id="registerEmail" placeholder="Введите ваш email">
             </div>
             <div class="form-group">
                 <label for="registerPassword">Пароль:</label>
@@ -1106,6 +1191,23 @@
             <div class="form-buttons">
                 <button class="submit-btn" id="saveEditTeaBtn">Сохранить изменения</button>
                 <button class="cancel-btn" id="cancelEditTeaBtn">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно предпросмотра отчета -->
+    <div class="modal" id="reportPreviewModal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Предпросмотр отчета</h3>
+                <button class="close-btn" id="closeReportPreview">&times;</button>
+            </div>
+            <div class="report-preview" id="reportPreviewContent">
+                <!-- Содержание отчета будет отображаться здесь -->
+            </div>
+            <div class="form-buttons">
+                <button class="submit-btn" id="downloadReportBtn"><i class="fas fa-download"></i> Скачать TXT файл</button>
+                <button class="cancel-btn" id="closeReportPreviewBtn">Закрыть</button>
             </div>
         </div>
     </div>
@@ -1205,7 +1307,31 @@
                     joinDate: "2023-01-01T00:00:00.000Z"
                 }
             ],
-            orders: [],
+            orders: [
+                {
+                    id: 1,
+                    userId: 1,
+                    items: [
+                        { id: 1, name: "Зеленый чай с жасмином", price: 750, quantity: 2 },
+                        { id: 2, name: "Ассам черный", price: 650, quantity: 1 }
+                    ],
+                    total: 2150,
+                    pointsEarned: 100,
+                    date: "2023-10-15T14:30:00.000Z",
+                    status: "completed"
+                },
+                {
+                    id: 2,
+                    userId: 1,
+                    items: [
+                        { id: 3, name: "Те Гуань Инь", price: 1850, quantity: 1 }
+                    ],
+                    total: 1850,
+                    pointsEarned: 90,
+                    date: "2023-10-20T11:15:00.000Z",
+                    status: "completed"
+                }
+            ],
             loyaltySettings: {
                 pointsPerPurchase: 5,
                 levels: [
@@ -1227,6 +1353,9 @@
         
         // Переменная для отслеживания редактируемого товара
         let editingTeaId = null;
+        
+        // Переменная для хранения текущего отчета
+        let currentReportContent = '';
 
         // Функция для отображения уведомлений
         function showAlert(message, type, elementId = null) {
@@ -1499,6 +1628,7 @@
             const adminControls = document.querySelectorAll('.admin-controls');
             const adminLoyaltySection = document.getElementById('adminLoyaltySection');
             const adminModeBtn = document.getElementById('adminModeBtn');
+            const reportSection = document.getElementById('reportSection');
             
             // Проверяем, является ли текущий пользователь администратором
             if (!currentUser || !currentUser.isAdmin) {
@@ -1512,8 +1642,18 @@
                 adminPanel.style.display = 'block';
                 adminIndicator.style.display = 'inline-block';
                 adminLoyaltySection.style.display = 'block';
+                reportSection.style.display = 'block';
                 adminModeBtn.classList.add('active');
                 adminModeBtn.textContent = 'Режим админа (вкл)';
+                
+                // Устанавливаем дату окончания отчета на сегодня
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('reportEndDate').value = today;
+                
+                // Устанавливаем дату начала отчета на месяц назад
+                const monthAgo = new Date();
+                monthAgo.setMonth(monthAgo.getMonth() - 1);
+                document.getElementById('reportStartDate').value = monthAgo.toISOString().split('T')[0];
                 
                 // Обновляем статистику
                 updateAdminStats();
@@ -1530,6 +1670,7 @@
                 adminPanel.style.display = 'none';
                 adminIndicator.style.display = 'none';
                 adminLoyaltySection.style.display = 'none';
+                reportSection.style.display = 'none';
                 adminModeBtn.classList.remove('active');
                 adminModeBtn.textContent = 'Режим админа';
                 
@@ -2047,6 +2188,252 @@
             showAlert('Файл data.json скачан. Загрузите его в корневую папку репозитория.', 'success', 'adminAlert');
         }
 
+        // ============================================
+        // ФУНКЦИИ ДЛЯ ГЕНЕРАЦИИ ОТЧЕТОВ ПО ПРОДАЖАМ
+        // ============================================
+
+        // Функция для получения отфильтрованных заказов по дате
+        function getFilteredOrders() {
+            const startDateStr = document.getElementById('reportStartDate').value;
+            const endDateStr = document.getElementById('reportEndDate').value;
+            const reportType = document.getElementById('reportType').value;
+            
+            let filteredOrders = [...teaShopDatabase.orders];
+            
+            // Фильтрация по дате
+            if (startDateStr) {
+                const startDate = new Date(startDateStr);
+                filteredOrders = filteredOrders.filter(order => new Date(order.date) >= startDate);
+            }
+            
+            if (endDateStr) {
+                const endDate = new Date(endDateStr);
+                endDate.setHours(23, 59, 59, 999); // Устанавливаем конец дня
+                filteredOrders = filteredOrders.filter(order => new Date(order.date) <= endDate);
+            }
+            
+            return filteredOrders;
+        }
+
+        // Функция для генерации отчета по продажам
+        function generateSalesReport() {
+            const filteredOrders = getFilteredOrders();
+            const reportType = document.getElementById('reportType').value;
+            
+            let reportContent = '';
+            const reportDate = new Date().toLocaleString('ru-RU');
+            
+            // Заголовок отчета
+            reportContent += '='.repeat(60) + '\n';
+            reportContent += 'ОТЧЕТ ПО ПРОДАЖАМ - ЧАЙНЫЙ МАГАЗИН "ХРЮШКА"\n';
+            reportContent += '='.repeat(60) + '\n\n';
+            
+            // Информация о периоде
+            const startDate = document.getElementById('reportStartDate').value;
+            const endDate = document.getElementById('reportEndDate').value;
+            
+            reportContent += `Дата формирования отчета: ${reportDate}\n`;
+            reportContent += `Период отчета: ${startDate || 'с начала'} - ${endDate || 'по текущий день'}\n`;
+            reportContent += `Тип отчета: ${getReportTypeName(reportType)}\n`;
+            reportContent += '-'.repeat(60) + '\n\n';
+            
+            // Общая статистика
+            const totalOrders = filteredOrders.length;
+            const totalRevenue = filteredOrders.reduce((sum, order) => sum + order.total, 0);
+            const totalItems = filteredOrders.reduce((sum, order) => 
+                sum + order.items.reduce((itemSum, item) => itemSum + item.quantity, 0), 0);
+            
+            reportContent += 'ОБЩАЯ СТАТИСТИКА:\n';
+            reportContent += '-'.repeat(40) + '\n';
+            reportContent += `Всего заказов: ${totalOrders}\n`;
+            reportContent += `Общая выручка: ${totalRevenue} руб.\n`;
+            reportContent += `Всего продано товаров: ${totalItems} упак.\n`;
+            reportContent += `Средний чек: ${totalOrders > 0 ? (totalRevenue / totalOrders).toFixed(2) : 0} руб.\n\n`;
+            
+            // Детализация по заказам
+            if (reportType === 'sales' || reportType === 'full') {
+                reportContent += 'ДЕТАЛИЗАЦИЯ ПО ЗАКАЗАМ:\n';
+                reportContent += '-'.repeat(40) + '\n';
+                
+                if (filteredOrders.length === 0) {
+                    reportContent += 'Заказов за выбранный период не найдено.\n\n';
+                } else {
+                    filteredOrders.forEach(order => {
+                        const orderDate = new Date(order.date).toLocaleString('ru-RU');
+                        const user = teaShopDatabase.users.find(u => u.id === order.userId);
+                        const userName = user ? user.name : 'Неизвестный клиент';
+                        
+                        reportContent += `Заказ №${order.id} от ${orderDate}\n`;
+                        reportContent += `Клиент: ${userName}\n`;
+                        reportContent += `Сумма: ${order.total} руб.\n`;
+                        reportContent += `Начислено баллов: ${order.pointsEarned}\n`;
+                        reportContent += 'Товары:\n';
+                        
+                        order.items.forEach(item => {
+                            reportContent += `  - ${item.name}: ${item.quantity} упак. × ${item.price} руб. = ${item.quantity * item.price} руб.\n`;
+                        });
+                        
+                        reportContent += '\n';
+                    });
+                }
+            }
+            
+            // Статистика по товарам
+            if (reportType === 'products' || reportType === 'full') {
+                reportContent += 'СТАТИСТИКА ПО ТОВАРАМ:\n';
+                reportContent += '-'.repeat(40) + '\n';
+                
+                // Собираем статистику по товарам
+                const productStats = {};
+                
+                filteredOrders.forEach(order => {
+                    order.items.forEach(item => {
+                        if (!productStats[item.id]) {
+                            productStats[item.id] = {
+                                name: item.name,
+                                quantity: 0,
+                                revenue: 0
+                            };
+                        }
+                        productStats[item.id].quantity += item.quantity;
+                        productStats[item.id].revenue += item.quantity * item.price;
+                    });
+                });
+                
+                // Преобразуем в массив и сортируем по выручке
+                const productArray = Object.values(productStats);
+                productArray.sort((a, b) => b.revenue - a.revenue);
+                
+                if (productArray.length === 0) {
+                    reportContent += 'Нет данных о продажах товаров за выбранный период.\n\n';
+                } else {
+                    productArray.forEach((product, index) => {
+                        reportContent += `${index + 1}. ${product.name}:\n`;
+                        reportContent += `   Продано: ${product.quantity} упак.\n`;
+                        reportContent += `   Выручка: ${product.revenue} руб.\n`;
+                        reportContent += `   Доля в выручке: ${totalRevenue > 0 ? ((product.revenue / totalRevenue) * 100).toFixed(2) : 0}%\n\n`;
+                    });
+                }
+            }
+            
+            // Статистика по клиентам
+            if (reportType === 'customers' || reportType === 'full') {
+                reportContent += 'СТАТИСТИКА ПО КЛИЕНТАМ:\n';
+                reportContent += '-'.repeat(40) + '\n';
+                
+                // Собираем статистику по клиентам
+                const customerStats = {};
+                
+                filteredOrders.forEach(order => {
+                    const user = teaShopDatabase.users.find(u => u.id === order.userId);
+                    if (user) {
+                        if (!customerStats[user.id]) {
+                            customerStats[user.id] = {
+                                name: user.name,
+                                email: user.email,
+                                orders: 0,
+                                totalSpent: 0,
+                                points: user.loyaltyPoints || 0
+                            };
+                        }
+                        customerStats[user.id].orders += 1;
+                        customerStats[user.id].totalSpent += order.total;
+                    }
+                });
+                
+                // Преобразуем в массив и сортируем по потраченной сумме
+                const customerArray = Object.values(customerStats);
+                customerArray.sort((a, b) => b.totalSpent - a.totalSpent);
+                
+                if (customerArray.length === 0) {
+                    reportContent += 'Нет данных о клиентах за выбранный период.\n\n';
+                } else {
+                    customerArray.forEach((customer, index) => {
+                        reportContent += `${index + 1}. ${customer.name} (${customer.email}):\n`;
+                        reportContent += `   Заказов: ${customer.orders}\n`;
+                        reportContent += `   Потрачено всего: ${customer.totalSpent} руб.\n`;
+                        reportContent += `   Средний чек: ${(customer.totalSpent / customer.orders).toFixed(2)} руб.\n`;
+                        reportContent += `   Бонусных баллов: ${customer.points}\n\n`;
+                    });
+                }
+            }
+            
+            // Заключение
+            reportContent += '='.repeat(60) + '\n';
+            reportContent += 'КОНЕЦ ОТЧЕТА\n';
+            reportContent += '='.repeat(60) + '\n';
+            
+            return reportContent;
+        }
+
+        // Функция для получения названия типа отчета
+        function getReportTypeName(type) {
+            switch(type) {
+                case 'sales': return 'Отчет по продажам';
+                case 'products': return 'Отчет по товарам';
+                case 'customers': return 'Отчет по клиентам';
+                case 'full': return 'Полный отчет';
+                default: return 'Неизвестный тип отчета';
+            }
+        }
+
+        // Функция для предпросмотра отчета
+        function previewReport() {
+            currentReportContent = generateSalesReport();
+            document.getElementById('reportPreviewContent').textContent = currentReportContent;
+            openModal('reportPreviewModal');
+        }
+
+        // Функция для скачивания отчета в TXT файл
+        function downloadReport() {
+            if (!currentReportContent) {
+                currentReportContent = generateSalesReport();
+            }
+            
+            const blob = new Blob([currentReportContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            
+            // Создаем имя файла с датой
+            const today = new Date();
+            const dateStr = today.toISOString().split('T')[0];
+            const fileName = `sales_report_${dateStr}.txt`;
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showAlert('Отчет скачан в формате TXT', 'success');
+        }
+
+        // Функция для генерации отчета за сегодня
+        function generateDailyReport() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('reportStartDate').value = today;
+            document.getElementById('reportEndDate').value = today;
+            document.getElementById('reportType').value = 'sales';
+            
+            currentReportContent = generateSalesReport();
+            downloadReport();
+        }
+
+        // Функция для генерации отчета за текущий месяц
+        function generateMonthlyReport() {
+            const today = new Date();
+            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0];
+            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0];
+            
+            document.getElementById('reportStartDate').value = firstDay;
+            document.getElementById('reportEndDate').value = lastDay;
+            document.getElementById('reportType').value = 'full';
+            
+            currentReportContent = generateSalesReport();
+            downloadReport();
+        }
+
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', async () => {
             // Пытаемся загрузить данные из data.json
@@ -2067,6 +2454,18 @@
             document.getElementById('cancelEditTeaBtn').addEventListener('click', () => closeModal('editTeaModal'));
             document.getElementById('closeEditTea').addEventListener('click', () => closeModal('editTeaModal'));
             
+            // Обработчики для отчетов
+            document.getElementById('previewReportBtn').addEventListener('click', previewReport);
+            document.getElementById('generateSalesReportBtn').addEventListener('click', () => {
+                currentReportContent = generateSalesReport();
+                downloadReport();
+            });
+            document.getElementById('generateDailyReportBtn').addEventListener('click', generateDailyReport);
+            document.getElementById('generateMonthlyReportBtn').addEventListener('click', generateMonthlyReport);
+            document.getElementById('downloadReportBtn').addEventListener('click', downloadReport);
+            document.getElementById('closeReportPreview').addEventListener('click', () => closeModal('reportPreviewModal'));
+            document.getElementById('closeReportPreviewBtn').addEventListener('click', () => closeModal('reportPreviewModal'));
+            
             // Горячие клавиши для включения режима администратора
             document.addEventListener('keydown', (e) => {
                 // Ctrl+Shift+A для включения/выключения режима администратора
@@ -2082,6 +2481,12 @@
                         // Автоматический вход как администратор
                         login('admin@teashop.ru', 'admin123');
                     }
+                }
+                
+                // Ctrl+R для генерации отчета (в режиме администратора)
+                if (e.ctrlKey && e.key === 'r' && isAdminModeActive) {
+                    e.preventDefault();
+                    previewReport();
                 }
             });
             
